@@ -15,4 +15,4 @@ add_library(library ${LIBRARY_SOURCES})
 
 find_package(LibArchive REQUIRED)
 
-target_link_libraries(library PUBLIC Qt6::Concurrent Qt6::Sql spdlog::spdlog fmt::fmt LibArchive::LibArchive)
+target_link_libraries(library PUBLIC Qt6::Concurrent Qt6::Sql spdlog::spdlog fmt LibArchive::LibArchive)
