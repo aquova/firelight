@@ -54,6 +54,8 @@ set(CMAKE_AUTOUIC ON)
 #FetchContent_MakeAvailable(QtAndroidCMake)
 
 #set(CMAKE_INSTALL_RPATH "")
+set(CMAKE_INSTALL_RPATH "$ORIGIN:$ORIGIN/../lib;/app/lib")
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 
 #set(QT_ENABLE_VERBOSE_DEPLOYMENT ON)
 
