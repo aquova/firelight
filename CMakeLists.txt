@@ -314,6 +314,8 @@ file(COPY ${CMAKE_SOURCE_DIR}/content.db DESTINATION ${CMAKE_BINARY_DIR}/system)
 
 if (WIN32)
     file(COPY ${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/bin/release/discord_partner_sdk.dll DESTINATION ${CMAKE_BINARY_DIR})
+elseif (UNIX AND NOT APPLE)
+    file(COPY ${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/lib/release/libdiscord_partner_sdk.so DESTINATION ${CMAKE_INSTALL_LIBDIR})
 endif ()
 
 enable_testing()
@@ -430,19 +432,14 @@ if (WIN32)
     install(
             PROGRAMS
             ${SHARED_LIB_DIR}/libsqlite3-0.dll
-            #            ${SHARED_LIB_DIR}/libjpeg-8.dll
-            #            ${SHARED_LIB_DIR}/libgio-2.0-0.dll
-            #            ${SHARED_LIB_DIR}/libjasper.dll
-            #            ${SHARED_LIB_DIR}/libtiff-6.dll
-            #            ${SHARED_LIB_DIR}/libwebp-7.dll
-            #            ${SHARED_LIB_DIR}/libwebpdemux-2.dll
-            #            ${SHARED_LIB_DIR}/libwebpmux-3.dll
-            #            ${SHARED_LIB_DIR}/libgobject-2.0-0.dll
-            #            ${SHARED_LIB_DIR}/swresample-5.dll
-            #            ${SHARED_LIB_DIR}/swscale-8.dll
-            #            ${SHARED_LIB_DIR}/libffi-8.dll
             ${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/bin/release/discord_partner_sdk.dll
             TYPE BIN
+    )
+elseif (UNIX AND NOT APPLE)
+    install(
+            PROGRAMS
+            ${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/lib/release/libdiscord_partner_sdk.so
+            TYPE LIB
     )
 endif ()
 
