@@ -54,8 +54,8 @@ set(CMAKE_AUTOUIC ON)
 #FetchContent_MakeAvailable(QtAndroidCMake)
 
 #set(CMAKE_INSTALL_RPATH "")
-set(CMAKE_INSTALL_RPATH "$ORIGIN:$ORIGIN/../lib;/app/lib")
-set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
+# set(CMAKE_INSTALL_RPATH "$ORIGIN:$ORIGIN/../lib;/app/lib")
+# set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 
 #set(QT_ENABLE_VERBOSE_DEPLOYMENT ON)
 
@@ -436,10 +436,6 @@ if (WIN32)
             TYPE BIN
     )
 elseif (UNIX AND NOT APPLE)
-    message(STATUS "CMAKE_INSTALL_LIBDIR: ${CMAKE_INSTALL_LIBDIR}")
-    if(EXISTS "${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/lib/release/libdiscord_partner_sdk.so")
-        message(STATUS "LIbrary found!")
-    endif()
     install(
             FILES
             ${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/lib/release/libdiscord_partner_sdk.so
