@@ -437,9 +437,9 @@ if (WIN32)
     )
 elseif (UNIX AND NOT APPLE)
     install(
-            PROGRAMS
+            FILES
             ${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/lib/release/libdiscord_partner_sdk.so
-            TYPE LIB
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )
 endif ()
 
