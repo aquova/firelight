@@ -436,6 +436,10 @@ if (WIN32)
             TYPE BIN
     )
 elseif (UNIX AND NOT APPLE)
+    message(STATUS "CMAKE_INSTALL_LIBDIR: ${CMAKE_INSTALL_LIBDIR}")
+    if(EXISTS "${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/lib/release/libdiscord_partner_sdk.so")
+        message(STATUS "LIbrary found!")
+    endif()
     install(
             FILES
             ${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/lib/release/libdiscord_partner_sdk.so
