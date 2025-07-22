@@ -392,7 +392,7 @@ public:
     case OS_ID_WINDOWS:
       return "./system/_cores/windows/";
     case OS_ID_LINUX:
-      return "./system/_cores/linux/";
+      return "/app/bin/system/_cores/linux/";
     default:
     case OS_ID_MAC:
       return "";

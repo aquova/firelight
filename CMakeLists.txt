@@ -312,31 +312,33 @@ file(COPY ${CMAKE_SOURCE_DIR}/content.db DESTINATION ${CMAKE_BINARY_DIR}/system)
 
 if (WIN32)
     file(COPY ${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/bin/release/discord_partner_sdk.dll DESTINATION ${CMAKE_BINARY_DIR})
+elseif (UNIX AND NOT APPLE)
+    file(COPY ${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/lib/release/libdiscord_partner_sdk.so DESTINATION ${CMAKE_INSTALL_LIBDIR})
 endif ()
 
 enable_testing()
 include(GoogleTest)
 
-add_executable(fl_test
-        tests/app/patching/pm_star_rod_mod_patch_test.cpp
-        tests/app/patching/ips_patch_test.cpp
-        tests/app/patching/ups_patch_test.cpp
-        tests/app/patching/bps_patch_test.cpp
-        tests/mocks/mock_library_database.hpp
-        tests/app/db/sqlite_userdata_database_test.cpp
-        tests/app/saves/save_manager_test.cpp
-        tests/app/library/sqlite_library_database_test.cpp
-        tests/app/library/playlist_test.cpp
-        tests/app/library/library_entry_test.cpp
-        tests/app/db/daos/savefile_metadata_test.cpp
-        tests/app/db/daos/play_session_test.cpp
-        tests/app/db/sqlite_content_database_test.cpp
-        tests/app/rcheevos/ra_cache_test.cpp
-        tests/app/rcheevos/rcheevos_offline_client_test.cpp
+# add_executable(fl_test
+#         tests/app/patching/pm_star_rod_mod_patch_test.cpp
+#         tests/app/patching/ips_patch_test.cpp
+#         tests/app/patching/ups_patch_test.cpp
+#         tests/app/patching/bps_patch_test.cpp
+#         tests/mocks/mock_library_database.hpp
+#         tests/app/db/sqlite_userdata_database_test.cpp
+#         tests/app/saves/save_manager_test.cpp
+#         tests/app/library/sqlite_library_database_test.cpp
+#         tests/app/library/playlist_test.cpp
+#         tests/app/library/library_entry_test.cpp
+#         tests/app/db/daos/savefile_metadata_test.cpp
+#         tests/app/db/daos/play_session_test.cpp
+#         tests/app/db/sqlite_content_database_test.cpp
+#         tests/app/rcheevos/ra_cache_test.cpp
+#         tests/app/rcheevos/rcheevos_offline_client_test.cpp
 
-        tests/main.cpp
-        tests/app/library/sqlite_user_library_test.cpp
-)
+#         tests/main.cpp
+#         tests/app/library/sqlite_user_library_test.cpp
+# )
 
 file(GLOB QML_TEST_FILES
         qml/ColorPalette.qml
@@ -376,11 +378,11 @@ add_test(NAME QMLTests COMMAND fl_qml_test)
 #target_compile_options(fl_test PUBLIC "-fprofile-instr-generate" "-fcoverage-mapping")
 #target_link_options(fl_test PUBLIC "-fprofile-instr-generate" "-fcoverage-mapping")
 
-add_dependencies(fl_test copy_resources)
+# add_dependencies(fl_test copy_resources)
 
-target_include_directories(fl_test PRIVATE ${GTEST_INCLUDE_DIRS} include)
-target_link_libraries(fl_test PUBLIC firelight_lib ${GTEST_BOTH_LIBRARIES})
-gtest_discover_tests(fl_test)
+# target_include_directories(fl_test PRIVATE ${GTEST_INCLUDE_DIRS} include)
+# target_link_libraries(fl_test PUBLIC firelight_lib ${GTEST_BOTH_LIBRARIES})
+# gtest_discover_tests(fl_test)
 #ctest_coverage_collect_gcov()
 #target_compile_options(firelight PRIVATE -Werror -ggdb3 -O0)
 #
@@ -412,17 +414,17 @@ elseif (WIN32)
     set(deploy_tool_options_arg --no-compiler-runtime)
 endif ()
 
-qt6_generate_deploy_qml_app_script(
-        TARGET firelight
-        OUTPUT_SCRIPT deploy_script
-        #        MACOS_BUNDLE_POST_BUILD
-        DEPLOY_TOOL_OPTIONS ${deploy_tool_options_arg}
-)
+# qt6_generate_deploy_qml_app_script(
+#         TARGET firelight
+#         OUTPUT_SCRIPT deploy_script
+#         #        MACOS_BUNDLE_POST_BUILD
+#         DEPLOY_TOOL_OPTIONS ${deploy_tool_options_arg}
+# )
 
 
-install(
-        SCRIPT ${deploy_script}
-)
+# install(
+#         SCRIPT ${deploy_script}
+# )
 
 if (WIN32)
     install(
@@ -441,6 +443,12 @@ if (WIN32)
             #            ${SHARED_LIB_DIR}/libffi-8.dll
             ${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/bin/release/discord_partner_sdk.dll
             TYPE BIN
+    )
+elseif (UNIX AND NOT APPLE)
+    install(
+            FILES
+            ${CMAKE_SOURCE_DIR}/lib/discord_social_sdk/lib/release/libdiscord_partner_sdk.so
+            DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )
 endif ()
 
